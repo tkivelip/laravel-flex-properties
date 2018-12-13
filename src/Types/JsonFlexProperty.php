@@ -8,6 +8,11 @@ class JsonFlexProperty extends FlexProperty
 {
     protected $table = 'text_flex_properties';
 
+    /**
+     * Set value.
+     *
+     * @param string|array $value
+     */
     public function setValueAttribute($value)
     {
         $this->attributes['value'] = is_array($value) ? json_encode($value) : $value;

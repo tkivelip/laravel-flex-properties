@@ -7,6 +7,13 @@ use tkivelip\LaravelFlexProperties\FlexProperty;
 
 class TextFlexProperty extends FlexProperty
 {
+    /**
+     * Set value.
+     *
+     * @param $value
+     *
+     * @throws InvalidFlexPropertyValueException
+     */
     public function setValueAttribute($value)
     {
         if (!is_string($value)) {

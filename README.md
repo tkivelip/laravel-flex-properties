@@ -1,14 +1,15 @@
 # Laravel Flex Properties
 
 ## Introduction
-Coming soon...
+With this package you can define custom attributes for Laravel's 
+Eloquent models.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require tkivelip/laravel-flexproperties
+composer require tkivelip/laravel-flex-properties
 ```
 
 ## How to use?

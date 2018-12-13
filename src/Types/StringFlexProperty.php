@@ -9,6 +9,13 @@ class StringFlexProperty extends FlexProperty
 {
     const MAX_LENGTH = 100;
 
+    /**
+     * Set calue.
+     *
+     * @param $value
+     *
+     * @throws InvalidFlexPropertyValueException
+     */
     public function setValueAttribute($value)
     {
         if (!is_string($value)) {

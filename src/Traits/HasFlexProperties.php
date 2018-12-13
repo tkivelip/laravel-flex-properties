@@ -2,7 +2,6 @@
 
 namespace tkivelip\LaravelFlexProperties\Traits;
 
-use Illuminate\Support\Collection;
 use tkivelip\LaravelFlexProperties\Exceptions\FlexPropertyException;
 use tkivelip\LaravelFlexProperties\FlexProperty;
 
@@ -24,7 +23,7 @@ trait HasFlexProperties
     /**
      * Flex property objects.
      *
-     * @var Collection
+     * @var array
      */
     protected $flex_objects = [];
 
@@ -142,7 +141,7 @@ trait HasFlexProperties
     {
         return FlexProperty::make([], $this->getFlexPropertyType($name))
             ->where('linkable_type', static::class)
-            ->where('linkable_id', $this->id)
+            ->where('linkable_id', $this->{'id'})
             ->where('name', $name)
             ->where('locale', $locale ?? $this->currentLocale())
             ->first();
@@ -233,7 +232,7 @@ trait HasFlexProperties
         collect($this->flex_objects)->flatten()->each(function($property) {
             $property->forceFill([
                 'linkable_type' => static::class,
-                'linkable_id'   => $this->id,
+                'linkable_id'   => $this->{'id'},
             ])->save();
         });
 
@@ -251,7 +250,7 @@ trait HasFlexProperties
     {
         collect($this->flex_properties)->flip()->map(function ($value, $type) {
                 return FlexProperty::make([], $type)
-                    ->where('linkable_id', $this->id)
+                    ->where('linkable_id', $this->{'id'})
                     ->where('linkable_type', static::class)
                     ->get();
             })

@@ -2,7 +2,7 @@
 
 namespace tkivelip\LaravelFlexProperties;
 
-use App\Foundation\Models\Model;
+use Illuminate\Database\Eloquent\Model;
 use tkivelip\LaravelFlexProperties\Exceptions\FlexPropertyException;
 use tkivelip\LaravelFlexProperties\Types\ArrayFlexProperty;
 use tkivelip\LaravelFlexProperties\Types\JsonFlexProperty;
