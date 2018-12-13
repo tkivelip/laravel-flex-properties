@@ -3,7 +3,6 @@
 namespace tkivelip\LaravelFlexProperties\Types;
 
 use tkivelip\LaravelFlexProperties\Exceptions\InvalidFlexPropertyValueException;
-use tkivelip\LaravelFlexProperties\FlexProperty;
 
 class TextFlexProperty extends FlexProperty
 {

@@ -2,11 +2,14 @@
 
 namespace tkivelip\LaravelFlexProperties\Types;
 
-use tkivelip\LaravelFlexProperties\FlexProperty;
-
 class JsonFlexProperty extends FlexProperty
 {
-    protected $table = 'text_flex_properties';
+    /**
+     * Database table.
+     *
+     * @var string
+     */
+    protected $table = 'json_flex_properties';
 
     /**
      * Set value.
@@ -16,5 +19,17 @@ class JsonFlexProperty extends FlexProperty
     public function setValueAttribute($value)
     {
         $this->attributes['value'] = is_array($value) ? json_encode($value) : $value;
+    }
+
+    /**
+     * Get value.
+     *
+     * @param string $value
+     *
+     * @return array
+     */
+    public function getValueAttribute($value)
+    {
+        return json_decode($value);
     }
 }

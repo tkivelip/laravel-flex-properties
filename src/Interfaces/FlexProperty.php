@@ -13,7 +13,7 @@ interface FlexProperties
      *
      * @return mixed
      */
-    public function getFlexPropertyValue(string $name, $type);
+    public function getFlexPropertyValue(string $name);
 
     /**
      * Set FlexProperty value.

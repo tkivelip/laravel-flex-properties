@@ -4,7 +4,7 @@ namespace tkivelip\LaravelFlexProperties\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class MultilingualServiceProvider extends ServiceProvider
+class FlexPropertyServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -14,8 +14,8 @@ class MultilingualServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
-            //$this->registerPublishing();
-            $this->loadMigrationsFrom(__DIR__.'/../../migrations');
+            $this->registerPublishing();
+            $this->loadMigrationsFrom(__DIR__ . '/../Migrations');
         }
     }
 
@@ -26,7 +26,7 @@ class MultilingualServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'laravel-multilingual');
+        $this->mergeConfigFrom(__DIR__.'/../Config/Config.php', 'flex-properties');
     }
 
     /**
@@ -37,10 +37,12 @@ class MultilingualServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         $this->publishes([
-            __DIR__.'/../../config/config.php' => config_path('laravel-multilingual.php'),
-        ], 'laravel-multilingual-config');
-        $this->publishes([
-            __DIR__.'/../../migrations' => database_path('migrations'),
-        ], 'laravel-multilingual-migrations');
+            __DIR__ . '/../Config/Config.php' => config_path('flex-properties.php'),
+        ], 'laravel-flex-property-config');
+
+        $this->publishes(
+            [__DIR__ . '/../Migrations' => database_path('migrations')],
+            'laravel-flex-property-migrations'
+        );
     }
 }
