@@ -1,7 +1,4 @@
 # Laravel Flex Properties
-[![Latest Stable Version](https://poser.pugx.org/mindtwo/laravel-dynamic-model-mutators/v/stable)](https://packagist.org/packages/mindtwo/laravel-dynamic-model-mutators)
-[![Total Downloads](https://poser.pugx.org/mindtwo/laravel-dynamic-model-mutators/downloads)](https://packagist.org/packages/mindtwo/laravel-dynamic-model-mutators)
-[![License](https://poser.pugx.org/mindtwo/laravel-dynamic-model-mutators/license)](https://packagist.org/packages/mindtwo/laravel-dynamic-model-mutators)
 
 ## Introduction
 Coming soon...
