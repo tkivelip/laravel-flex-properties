@@ -20,7 +20,7 @@ class CreateStringFlexPropertiesTable extends Migration
             $table->string('locale', 10)->nullable();
             $table->string('value');
             $table->timestamps();
-            $table->unique(['id', 'linkable_type', 'linkable_id', 'locale'], 'linkable_unique');
+            $table->unique(['id', 'linkable_type', 'linkable_id', 'locale'], 'flex_string_unique');
         });
     }
 

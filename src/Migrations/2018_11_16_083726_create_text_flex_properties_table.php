@@ -15,12 +15,12 @@ class CreateTextFlexPropertiesTable extends Migration
     {
         Schema::create('text_flex_properties', function (Blueprint $table) {
             $table->increments('id');
-            $table->nullableMorphs('linkable');
+            $table->morphs('linkable');
             $table->string('name', 50)->nullable();
-            $table->string('locale', 10)->nullable();
+            $table->string('locale', 5)->nullable()->index();
             $table->longText('value');
             $table->timestamps();
-            $table->unique(['id', 'linkable_type', 'linkable_id', 'locale'], 'linkable_unique');
+            $table->unique(['id', 'linkable_type', 'linkable_id', 'locale'], 'flex_text_unique');
         });
     }
 

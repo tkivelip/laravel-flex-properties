@@ -1,8 +1,8 @@
 <?php
 
-namespace tkivelip\LaravelFlexProperties\Types;
+namespace LaravelFlexProperties\Types;
 
-use tkivelip\LaravelFlexProperties\Exceptions\InvalidFlexPropertyValueException;
+use LaravelFlexProperties\Exceptions\InvalidFlexPropertyValueException;
 
 class StringFlexProperty extends FlexProperty
 {

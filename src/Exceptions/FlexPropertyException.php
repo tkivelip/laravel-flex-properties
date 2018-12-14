@@ -1,6 +1,6 @@
 <?php
 
-namespace tkivelip\LaravelFlexProperties\Exceptions;
+namespace LaravelFlexProperties\Exceptions;
 
 use Exception;
 

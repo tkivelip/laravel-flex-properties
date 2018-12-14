@@ -1,9 +1,9 @@
 <?php
 
-namespace tkivelip\LaravelFlexProperties;
+namespace LaravelFlexProperties;
 
-use tkivelip\LaravelFlexProperties\Exceptions\FlexPropertyException;
-use tkivelip\LaravelFlexProperties\Types\FlexProperty;
+use LaravelFlexProperties\Exceptions\FlexPropertyException;
+use LaravelFlexProperties\Types\FlexProperty;
 
 class Flex
 {

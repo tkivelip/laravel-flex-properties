@@ -1,13 +1,13 @@
 <?php
 
-namespace tkivelip\LaravelFlexProperties\Tests\Unit;
+namespace LaravelFlexProperties\Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use tkivelip\LaravelFlexProperties\Model;
-use tkivelip\LaravelFlexProperties\Tests\TestCase;
-use tkivelip\LaravelFlexProperties\Types\JsonFlexProperty;
-use tkivelip\LaravelFlexProperties\Types\StringFlexProperty;
-use tkivelip\LaravelFlexProperties\Types\TextFlexProperty;
+use LaravelFlexProperties\Model;
+use LaravelFlexProperties\Tests\TestCase;
+use LaravelFlexProperties\Types\JsonFlexProperty;
+use LaravelFlexProperties\Types\StringFlexProperty;
+use LaravelFlexProperties\Types\TextFlexProperty;
 
 class ModelTest extends TestCase
 {

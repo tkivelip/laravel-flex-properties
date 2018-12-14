@@ -1,13 +1,12 @@
 <?php
 
-namespace tkivelip\LaravelFlexProperties;
+namespace LaravelFlexProperties;
 
-use Illuminate\Database\Eloquent\Model as BaseModel;
 use mindtwo\LaravelDynamicModelMutators\DynamicModelMutator;
-use tkivelip\LaravelFlexProperties\Interfaces\FlexProperties;
-use tkivelip\LaravelFlexProperties\Traits\HasFlexProperties;
+use LaravelFlexProperties\Interfaces\FlexProperties;
+use LaravelFlexProperties\Traits\HasFlexProperties;
 
-class Model extends BaseModel implements FlexProperties
+class Model extends \Illuminate\Database\Eloquent\Model implements FlexProperties
 {
     use DynamicModelMutator,
         HasFlexProperties;

@@ -1,11 +1,10 @@
 <?php
 
-namespace tkivelip\LaravelFlexProperties\Tests;
+namespace LaravelFlexProperties\Tests;
 
-use tkivelip\LaravelFlexProperties\Providers\FlexPropertyServiceProvider;
-use Orchestra\Testbench\TestCase as BaseTestCase;
+use LaravelFlexProperties\Providers\FlexPropertyServiceProvider;
 
-class TestCase extends BaseTestCase
+class TestCase extends \Orchestra\Testbench\TestCase
 {
     protected function getPackageProviders($app)
     {

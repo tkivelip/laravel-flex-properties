@@ -1,9 +1,9 @@
 <?php
 
-namespace tkivelip\LaravelFlexProperties\Traits;
+namespace LaravelFlexProperties\Traits;
 
-use tkivelip\LaravelFlexProperties\Exceptions\FlexPropertyException;
-use tkivelip\LaravelFlexProperties\Flex;
+use LaravelFlexProperties\Exceptions\FlexPropertyException;
+use LaravelFlexProperties\Flex;
 
 trait HasFlexProperties
 {

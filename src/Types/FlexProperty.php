@@ -1,6 +1,6 @@
 <?php
 
-namespace tkivelip\LaravelFlexProperties\Types;
+namespace LaravelFlexProperties\Types;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;

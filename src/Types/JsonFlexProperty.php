@@ -1,6 +1,6 @@
 <?php
 
-namespace tkivelip\LaravelFlexProperties\Types;
+namespace LaravelFlexProperties\Types;
 
 class JsonFlexProperty extends FlexProperty
 {

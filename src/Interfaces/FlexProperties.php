@@ -1,6 +1,8 @@
 <?php
 
-namespace tkivelip\LaravelFlexProperties\Interfaces;
+namespace LaravelFlexProperties\Interfaces;
+
+use LaravelFlexProperties\Exceptions\FlexPropertyException;
 
 interface FlexProperties
 {
@@ -23,7 +25,7 @@ interface FlexProperties
      *
      * @throws FlexPropertyException
      *
-     * @return HasFlexProperties
+     * @return $this
      */
     public function setFlexPropertyValue(string $name, $value);
 

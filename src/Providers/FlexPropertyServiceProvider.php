@@ -1,6 +1,6 @@
 <?php
 
-namespace tkivelip\LaravelFlexProperties\Providers;
+namespace LaravelFlexProperties\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

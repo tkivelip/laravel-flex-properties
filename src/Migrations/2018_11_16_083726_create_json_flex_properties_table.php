@@ -20,7 +20,7 @@ class CreateJsonFlexPropertiesTable extends Migration
             $table->string('locale', 10)->nullable();
             $table->longText('value');
             $table->timestamps();
-            $table->unique(['id', 'linkable_type', 'linkable_id', 'locale'], 'linkable_unique');
+            $table->unique(['id', 'linkable_type', 'linkable_id', 'locale'], 'flex_json_unique');
         });
     }
 

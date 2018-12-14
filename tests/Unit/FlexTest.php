@@ -1,13 +1,14 @@
 <?php
 
-namespace tkivelip\LaravelFlexProperties\Tests\Unit;
+namespace LaravelFlexProperties\Tests\Unit;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use tkivelip\LaravelFlexProperties\Flex;
-use tkivelip\LaravelFlexProperties\Tests\TestCase;
-use tkivelip\LaravelFlexProperties\Types\JsonFlexProperty;
-use tkivelip\LaravelFlexProperties\Types\StringFlexProperty;
-use tkivelip\LaravelFlexProperties\Types\TextFlexProperty;
+use LaravelFlexProperties\Exceptions\FlexPropertyException;
+use LaravelFlexProperties\Flex;
+use LaravelFlexProperties\Tests\TestCase;
+use LaravelFlexProperties\Types\JsonFlexProperty;
+use LaravelFlexProperties\Types\StringFlexProperty;
+use LaravelFlexProperties\Types\TextFlexProperty;
 
 class FlexTest extends TestCase
 {
@@ -31,6 +32,7 @@ class FlexTest extends TestCase
      * Get flex property types test.
      *
      * @test
+     * @throws FlexPropertyException
      */
     public function testGetFlexPropertyTypes()
     {
@@ -48,6 +50,7 @@ class FlexTest extends TestCase
      * Flex property type exists test.
      *
      * @test
+     * @throws FlexPropertyException
      */
     public function testFlexPropertyTypeExists()
     {
