@@ -8,7 +8,7 @@ use LaravelFlexProperties\Flex;
 trait HasFlexProperties
 {
     /**
-     * Locale settings
+     * Locale settings.
      *
      * @see bootHasFlexProperties()
      *
@@ -17,7 +17,7 @@ trait HasFlexProperties
     protected static $locale = [
         'current'  => 'en',
         'default'  => 'en',
-        'fallback' => 'en'
+        'fallback' => 'en',
     ];
 
     /**
@@ -27,6 +27,7 @@ trait HasFlexProperties
      */
     protected $flex_objects = [];
     protected $flex_joins = [];
+    protected $next_operation = [];
 
     /**
      * Boot trait.
@@ -41,11 +42,11 @@ trait HasFlexProperties
         static::$locale = [
             'current'  => config('app.locale'),
             'default'  => config('app.locale'),
-            'fallback' => config('app.fallback_locale')
+            'fallback' => config('app.fallback_locale'),
         ];
 
         // Register event to store flex properties
-        static::saved(function($model) {
+        static::saved(function ($model) {
             $model->storeFlexProperties();
         });
 
@@ -56,20 +57,20 @@ trait HasFlexProperties
 
     public function scopeFlexProperties($query)
     {
-        collect($this->flex_properties)->flip()->each(function ($item, $type) use(&$query) {
+        collect($this->flex_properties)->flip()->each(function ($item, $type) use (&$query) {
             $property = Flex::factory($type);
-            $tableAlias = 'flex_tbl_' . $type;
-            $query->leftJoin($property->getTable() . ' AS ' . $tableAlias, function ($join) use ($type, $tableAlias) {
-                $join->on($tableAlias . '.linkable_id', $this->getTable() . '.id');
-                $join->on($tableAlias . '.linkable_type', static::class);
+            $tableAlias = 'flex_tbl_'.$type;
+            $query->leftJoin($property->getTable().' AS '.$tableAlias, function ($join) use ($type, $tableAlias) {
+                $join->on($tableAlias.'.linkable_id', $this->getTable().'.id');
+                $join->where($tableAlias.'.linkable_type', static::class);
             });
         });
 
-        $query->select($this->getTable() . '.*');
+        $query->select($this->getTable().'.*');
     }
 
     /**
-     * Determine if a FlexProperty is defined
+     * Determine if a FlexProperty is defined.
      *
      * @param string $name
      *
@@ -81,7 +82,7 @@ trait HasFlexProperties
     }
 
     /**
-     * Determine if a FlexProperty is defined and throw an exception if not
+     * Determine if a FlexProperty is defined and throw an exception if not.
      *
      * @param string $name
      *
@@ -91,7 +92,7 @@ trait HasFlexProperties
      */
     protected function hasFlexPropertyOrFail(string $name): string
     {
-        if (!$this->hasFlexProperty($name)) {
+        if (! $this->hasFlexProperty($name)) {
             throw new FlexPropertyException(sprintf('FlexProperty "%s" is not defined', $name));
         }
 
@@ -115,16 +116,21 @@ trait HasFlexProperties
     }
 
     /**
-     * Return a reference to a flex property object
+     * Return a reference to a flex property object.
      *
-     * @param string $name
+     * @param string      $name
      * @param string|null $locale
      *
      * @return mixed
      */
-    protected function &flexPropertyReference(string $name, string $locale=null)
+    protected function &flexPropertyReference(string $name, string $locale = null)
     {
         return $this->flex_objects[$locale ?? $this->currentLocale()][$name];
+    }
+
+    protected function operationFinished()
+    {
+        $this->next_operation = [];
     }
 
     /**
@@ -143,8 +149,10 @@ trait HasFlexProperties
 
     /**
      * @param string $name
-     * @return mixed
+     *
      * @throws FlexPropertyException
+     *
+     * @return mixed
      */
     public function getFlexProperty(string $name)
     {
@@ -159,21 +167,22 @@ trait HasFlexProperties
         return $this->flexPropertyReference($name, $locale);
     }
 
-    public function hasFlexObject($name, $locale=null)
+    public function hasFlexObject($name, $locale = null)
     {
         return isset($this->flex_objects[$locale ?? $this->currentLocale()][$name]);
     }
 
     /**
-     * Get flex property value from database
-     * @param string $name
+     * Get flex property value from database.
+     *
+     * @param string      $name
      * @param string|null $locale
      *
      * @throws FlexPropertyException
      *
      * @return FlexProperty
      */
-    protected function getFlexPropertyFromDb(string $name, string $locale=null)
+    protected function getFlexPropertyFromDb(string $name, string $locale = null)
     {
         return Flex::factory($this->getFlexPropertyType($name))
             ->where('linkable_type', static::class)
@@ -193,7 +202,7 @@ trait HasFlexProperties
      *
      * @return HasFlexProperties
      */
-    public function setFlexPropertyValue(string $name, $values=null): self
+    public function setFlexPropertyValue(string $name, $values = null): self
     {
         $this->hasFlexPropertyOrFail($name);
 
@@ -212,17 +221,17 @@ trait HasFlexProperties
     }
 
     /**
-     * Make flex property object
+     * Make flex property object.
      *
-     * @param null $name
-     * @param null $locale
+     * @param null  $name
+     * @param null  $locale
      * @param array $attributes
      *
      * @throws FlexPropertyException
      *
      * @return FlexProperty
      */
-    protected function makeFlexObject($name=null, $locale=null, $attributes=[])
+    protected function makeFlexObject($name = null, $locale = null, $attributes = [])
     {
         $attributes = array_merge(
             $attributes,
@@ -233,27 +242,44 @@ trait HasFlexProperties
     }
 
     /**
-     * Set the current locale
+     * Set the current locale.
      *
      * @param string|null $locale
      *
      * @return $this
      */
-    public function locale(string $locale=null): self
+    public function locale(string $locale = null): self
     {
         static::$locale['current'] = $locale;
 
         return $this;
     }
 
+    public function nextLocale(string $locale = null)
+    {
+        $this->next_operation['locale'] = $locale;
+
+        return $this;
+    }
+
+    public function nextOperation(string $method, $arguments = [], $forward = false)
+    {
+        $on = $forward ? 'forward' : 'self';
+        $this->next_operation[$on][$method] = $arguments;
+
+        return $this;
+    }
+
     /**
-     * Return the current flex property locale
+     * Return the current flex property locale.
      *
      * @return string
      */
     protected function currentLocale(): ?string
     {
-        return static::$locale['current'];
+        return isset($this->next_operation['locale'])
+            ? $this->next_operation['locale']
+            : static::$locale['current'];
     }
 
     /**
@@ -265,7 +291,7 @@ trait HasFlexProperties
      */
     public function storeFlexProperties(): self
     {
-        collect($this->flex_objects)->flatten()->each(function($property) {
+        collect($this->flex_objects)->flatten()->each(function ($property) {
             $property->forceFill([
                 'linkable_type' => static::class,
                 'linkable_id'   => $this->{'id'},
@@ -285,11 +311,11 @@ trait HasFlexProperties
     public function loadFlexProperties()
     {
         collect($this->flex_properties)->flip()->map(function ($value, $type) {
-                return Flex::factory($type)
+            return Flex::factory($type)
                     ->where('linkable_id', $this->{'id'})
                     ->where('linkable_type', static::class)
                     ->get();
-            })
+        })
             ->filter()
             ->flatten()
             ->each(function ($property) {
@@ -320,7 +346,7 @@ trait HasFlexProperties
         );
     }
 
-    public function flexWhere($name, $operator, $value=null)
+    public function flexWhere($name, $operator, $value = null)
     {
         $type = $this->getFlexPropertyType(
             $this->hasFlexPropertyOrFail($name)
@@ -331,13 +357,11 @@ trait HasFlexProperties
             $operator = '=';
         }
 
-        return function($query) use ($type, $operator, $value, $name) {
-            $query->where('flex_tbl_' . $type . '.value', $value);
-            $query->where('flex_tbl_' . $type . '.name', $name);
-            return $query;
+        return function ($query) use ($type, $operator, $value, $name) {
+            $query->where('flex_tbl_'.$type.'.value', $value);
+            $query->where('flex_tbl_'.$type.'.name', $name);
 
+            return $query;
         };
     }
-
-
 }
