@@ -2,12 +2,12 @@
 
 namespace LaravelFlexProperties;
 
-use mindtwo\LaravelDynamicModelMutators\DynamicModelMutator;
 use LaravelFlexProperties\Interfaces\FlexProperties;
 use LaravelFlexProperties\Traits\HasFlexProperties;
+use Mindtwo\DynamicMutators\Traits\HasDynamicMutators;
 
 class Model extends \Illuminate\Database\Eloquent\Model implements FlexProperties
 {
-    use DynamicModelMutator,
+    use HasDynamicMutators,
         HasFlexProperties;
 }

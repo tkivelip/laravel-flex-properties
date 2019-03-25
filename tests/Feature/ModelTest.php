@@ -13,11 +13,10 @@ class ModelTest extends TestCase
 {
     use DatabaseMigrations;
 
-    protected function mockModel() {
-
+    protected function mockModel()
+    {
         return new class() extends Model {
-
-            protected $flex_properties = [
+            public $flex_properties = [
                 'string' => 'string',
                 'text'   => 'text',
                 'json'   => 'json',
@@ -38,15 +37,6 @@ class ModelTest extends TestCase
         };
     }
 
-    /**
-     * Clean up the testing environment before the next test.
-     *
-     * @return void
-     */
-    protected function tearDown()
-    {
-    }
-
     public function testSetAndGetFlexProperties()
     {
         $model = $this->mockModel();
@@ -54,6 +44,7 @@ class ModelTest extends TestCase
         $model->string = 'String example';
         $model->text = 'Text example';
         $model->json = ['json', 'example'];
+        //dd($model);
 
         $this->assertInstanceOf(StringFlexProperty::class, $model->getFlexProperty('string'));
         $this->assertInstanceOf(TextFlexProperty::class, $model->getFlexProperty('text'));
@@ -83,7 +74,6 @@ class ModelTest extends TestCase
         $this->assertEquals(['json', 'example'], JsonFlexProperty::first()->value);
     }
 
-
     public function testSetAndGetFlexPropertiesWithLocale()
     {
         $model = $this->mockModel();
@@ -103,13 +93,12 @@ class ModelTest extends TestCase
         $this->assertEquals(['json', 'beispiel'], $model->locale('de')->json);
     }
 
-
     public function testCreateModel()
     {
         $model = $this->mockModel()->create([
             'string' => 'String example',
             'text'   => 'Text example',
-            'json'   => ['json', 'example']
+            'json'   => ['json', 'example'],
         ]);
 
         $this->assertEquals('String example', StringFlexProperty::first()->value);
@@ -126,13 +115,13 @@ class ModelTest extends TestCase
         $model = $this->mockModel()->create([
             'string' => 'String example',
             'text'   => 'Text example',
-            'json'   => ['json', 'example']
+            'json'   => ['json', 'example'],
         ]);
 
         $model->fill([
             'string' => 'String updated',
             'text'   => 'Text updated',
-            'json'   => ['json', 'updated']
+            'json'   => ['json', 'updated'],
         ])->save();
 
         $this->assertEquals('String updated', $model->string);
@@ -170,5 +159,4 @@ class ModelTest extends TestCase
 
         $this->assertEquals('String example', $model->string);
     }
-
 }

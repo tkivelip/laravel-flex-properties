@@ -4,6 +4,7 @@ namespace LaravelFlexProperties\Traits;
 
 use LaravelFlexProperties\Exceptions\FlexPropertyException;
 use LaravelFlexProperties\Flex;
+use Mindtwo\DynamicMutators\Facades\Handler;
 
 trait HasFlexProperties
 {
@@ -35,8 +36,11 @@ trait HasFlexProperties
     public static function bootHasFlexProperties()
     {
         // Register mutators
-        static::registerSetMutator('flex_properties', 'setFlexPropertyValue');
-        static::registerGetMutator('flex_properties', 'getFlexPropertyValue');
+        static::registerMutationHandler(Handler::make([
+            'name'        => 'flex_properties',
+            'get_mutator' => ['getFlexPropertyValue'],
+            'set_mutator' => ['setFlexPropertyValue'],
+        ]));
 
         // Locale settings
         static::$locale = [
